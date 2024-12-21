@@ -25,10 +25,13 @@ class IncomingGoodsController extends Controller
         $request->validate([
             'no_incoming_goods' => 'required|string|max:255',
             'item_code' => 'required|string|max:255',
-            'item_name' => 'required|string|max:255',
+            'item_name' => 'required|regex:/^[a-zA-Z\s]+$/',
             'quantity' => 'required|integer',
             'origin' => 'required|string|max:255',
             'date_of_entry' => 'required|date',
+        ], [
+            'item_name.regex' => 'Nama barang hanya boleh berisi huruf dan spasi',
+            'quantity.integer' => 'Quantity hanya boleh berisi angka',
         ]);
 
         $existingData = StockItems::where('item_code', $request->item_code)

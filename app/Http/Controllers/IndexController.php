@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+    public function nameUser()
+    {
+        $user = auth()->user();
+        return view('index', compact('user'));
+    }
     public function sumGoods() {
         $sumIncoming = IncomingGoods::sum('quantity');
         $sumOutgoing = OutgoingGoods::sum('quantity');

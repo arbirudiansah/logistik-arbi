@@ -36,6 +36,8 @@ class OutgoingGoodsController extends Controller
             'quantity' => 'required|integer',
             'destination' => 'required|string|max:255',
             'date_of_out' => 'required|date',
+        ], [
+            'quantity.integer' => 'Quantity hanya boleh berisi angka',
         ]);
 
         $stockItem = StockItems::where('item_code', $request->item_code)->first();
@@ -72,5 +74,4 @@ class OutgoingGoodsController extends Controller
             return response()->json(['item_name' => '']);
         }
     }
-
 }
