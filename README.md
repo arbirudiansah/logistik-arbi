@@ -16,7 +16,7 @@ Langkah-langkah Menjalankan Aplikasi
 
 Pertama-tama, Anda harus meng-clone repository Laravel yang ada di GitHub ke komputer lokal Anda. Buka terminal dan jalankan perintah berikut (gantilah username/repository-name dengan URL repository Anda):
 
-git clone https://github.com/username/repository-name.git
+git@github.com:arbirudiansah/logistik-arbi.git
 
 Setelah repository berhasil di-clone, masuk ke direktori aplikasi:
 
