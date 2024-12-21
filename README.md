@@ -1,66 +1,98 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Panduan Menjalankan Aplikasi Laravel dari Git ke Lokal
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Panduan ini akan membantu Anda untuk menjalankan aplikasi Laravel yang diambil dari GitHub ke lingkungan lokal Anda. Langkah-langkah berikut ini menjelaskan cara meng-clone repository, mengonfigurasi aplikasi, dan menjalankannya dengan MySQL sebagai database.
+Prasyarat
 
-## About Laravel
+Pastikan Anda sudah menginstal perangkat lunak berikut di komputer lokal Anda:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+    -PHP (Versi 8.1 atau lebih tinggi)
+    -Composer (Manajer dependensi PHP)
+    -MySQL atau MariaDB
+    -Git (Untuk meng-clone repository)
+    -Web Server (Nginx/Apache, atau menggunakan server built-in Laravel)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Langkah-langkah Menjalankan Aplikasi
+1. Clone Repository dari Git
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Pertama-tama, Anda harus meng-clone repository Laravel yang ada di GitHub ke komputer lokal Anda. Buka terminal dan jalankan perintah berikut (gantilah username/repository-name dengan URL repository Anda):
 
-## Learning Laravel
+git clone https://github.com/username/repository-name.git
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Setelah repository berhasil di-clone, masuk ke direktori aplikasi:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+cd repository-name
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. Install Dependensi Laravel
 
-## Laravel Sponsors
+Laravel menggunakan Composer untuk mengelola dependensi. Setelah meng-clone repository, jalankan perintah berikut untuk menginstal semua dependensi yang dibutuhkan oleh aplikasi:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+composer install
 
-### Premium Partners
+Perintah ini akan membaca file composer.json dan mengunduh package yang dibutuhkan.
+3. Konfigurasi File .env
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Laravel menggunakan file .env untuk menyimpan konfigurasi lingkungan, seperti pengaturan database. Anda perlu menyalin file .env.example menjadi .env dan mengonfigurasi pengaturan database MySQL di dalamnya:
 
-## Contributing
+cp .env.example .env
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Buka file .env menggunakan editor teks dan sesuaikan pengaturan database MySQL Anda. Berikut adalah contoh pengaturan database:
 
-## Code of Conduct
+    -DB_CONNECTION=mysql
+    -DB_HOST=127.0.0.1
+    -DB_PORT=3306
+    -DB_DATABASE=db_logistik_arbi
+    -DB_USERNAME=root
+    -DB_PASSWORD=
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Gantilah nama_database, nama_pengguna, dan password_anda dengan kredensial MySQL yang sesuai.
+4. Generate Application Key
 
-## Security Vulnerabilities
+Laravel memerlukan application key untuk enkripsi dan perlindungan data. Anda dapat menghasilkan key ini dengan menjalankan perintah berikut:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+php artisan key:generate
 
-## License
+Perintah ini akan menghasilkan key dan menambahkannya secara otomatis ke file .env.
+5. Migrasi Database
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Setelah mengonfigurasi database, Anda perlu menjalankan migrasi untuk membuat tabel yang diperlukan di dalam database. Jalankan perintah berikut:
+
+php artisan migrate
+
+Jika aplikasi menggunakan seeding untuk memasukkan data awal, Anda juga dapat menjalankan perintah berikut setelah migrasi:
+
+php artisan db:seed
+
+6. Jalankan Aplikasi Laravel
+
+Setelah semua pengaturan selesai, Anda dapat menjalankan aplikasi Laravel menggunakan server built-in yang disediakan oleh Laravel:
+
+php artisan serve
+
+Secara default, aplikasi akan berjalan di http://127.0.0.1:8000.
+
+Jika Anda menggunakan server web seperti Apache atau Nginx, pastikan untuk mengonfigurasi server tersebut untuk mengarahkan ke folder public/ di dalam aplikasi Laravel.
+Masalah Umum dan Solusi
+1. Gagal Koneksi ke Database
+
+    Pastikan MySQL berjalan di komputer lokal Anda.
+    Periksa kembali pengaturan DB_HOST, DB_USERNAME, DB_PASSWORD, dan DB_DATABASE di file .env.
+    Jika menggunakan Docker atau kontainer, pastikan aplikasi dan database berada dalam jaringan yang sama.
+
+2. Migrasi Gagal
+
+    Jika migrasi gagal, pastikan database sudah ada dan konfigurasi MySQL benar.
+    Coba reset migrasi dan jalankan kembali:
+
+    php artisan migrate:reset
+    php artisan migrate
+
+3. Masalah Autoload Composer
+
+    Jika ada masalah terkait autoloading, jalankan perintah berikut untuk memperbarui autoload Composer:
+
+    composer dump-autoload
+
+Langkah Selanjutnya
+
+    Setelah aplikasi berjalan, Anda dapat mulai mengonfigurasi fitur lain seperti queue, schedule, atau middleware sesuai kebutuhan.
+    Jika Anda bekerja dengan tim, pastikan file .env sudah dikonfigurasi dengan benar atau menggunakan file .env.example untuk berbagi pengaturan environment.
